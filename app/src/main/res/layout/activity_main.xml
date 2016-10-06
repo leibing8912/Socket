@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_above="@+id/ly_content">
+    <TextView
+        android:id="@+id/tv_show"
+        android:singleLine="false"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/ly_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+        <EditText
+            android:hint="content"
+            android:id="@+id/edt_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:singleLine="true">
+        </EditText>
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorAccent"
+            android:text="发送"
+            android:textSize="20sp"/>
+    </LinearLayout>
+</RelativeLayout>
