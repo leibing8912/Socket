@@ -80,6 +80,8 @@ public class TcpSocketClient {
                             if (!mSocket.isInputShutdown()) {
                                 if ((content = in.readLine()) != null) {
                                     content += "\n";
+                                    if (mTcpSocketListener != null)
+                                        mTcpSocketListener.callBackContent(content);
                                 }
                             }
                         }
@@ -90,6 +92,8 @@ public class TcpSocketClient {
             }
         }).start();
     }
+
+
 
     /**
      * 通过tcp套接字发送消息
@@ -103,6 +107,8 @@ public class TcpSocketClient {
         if (mSocket != null && mSocket.isConnected()){
             if (!mSocket.isOutputShutdown() && out != null){
                 out.println(msg);
+                if (mTcpSocketListener != null)
+                    mTcpSocketListener.clearInputContent();
             }
         }
     }
@@ -116,5 +122,7 @@ public class TcpSocketClient {
     public interface TcpSocketListener{
         // 回调内容
         void callBackContent(String content);
+        // 清除输入框内容
+        void clearInputContent();
     }
 }

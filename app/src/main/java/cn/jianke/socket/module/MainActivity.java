@@ -1,12 +1,12 @@
 package cn.jianke.socket.module;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import cn.jianke.socket.R;
 import cn.jianke.socket.tcp.TcpSocketClient;
 
@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private Button sendBtn;
     // tcp套接字客户端
     private TcpSocketClient mTcpSocketClient;
+    // 自定义Handler,用于更新Ui
+    private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +41,22 @@ public class MainActivity extends AppCompatActivity {
         mTcpSocketClient = new TcpSocketClient(serverIp, serverPort,
                 new TcpSocketClient.TcpSocketListener() {
             @Override
-            public void callBackContent(String content) {
-
+            public void callBackContent(final String content) {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (showTv != null)
+                            showTv.setText(showTv.getText().toString() + content);
+                    }
+                });
             }
-        });
+
+                    @Override
+                    public void clearInputContent() {
+                        if (contentEdt != null)
+                            contentEdt.setText("");
+                    }
+                });
         // 启动tcp套接字连接
         mTcpSocketClient.startTcpSocketConnect();
         // onClick

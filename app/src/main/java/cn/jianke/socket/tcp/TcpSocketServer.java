@@ -111,7 +111,7 @@ public class TcpSocketServer {
                             if(msg.equals("exit")) {
                                 mList.remove(socket);
                                 in.close();
-                                msg = "tips: user" +this.socket.getInetAddress() + " come";  
+                                msg = "tips: user" +this.socket.getInetAddress() + " exit";
                                 socket.close();
                                 this.sendmsg();
                                 break;
